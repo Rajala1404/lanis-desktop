@@ -216,11 +216,10 @@ Future<void> saveFile(BuildContext context, FileInfo file, Function callback) as
       initialDirectory: downloadDir
     );
 
-    if (path == null) callback();
+    if (path == null) return;
+    File(file.localPath!).copySync(path);
 
-    File(file.localPath!).copySync(path!);
-
-    callback();
+    return;
   }
 
   // For remote files, download then save
@@ -244,9 +243,8 @@ Future<void> saveFile(BuildContext context, FileInfo file, Function callback) as
         lockParentWindow: true,
       );
 
-      if (path == null) callback();
-
-      File(filepath).copySync(path!);
+      if (path == null) return;
+      File(filepath).copySync(path);
 
       callback();
     }
