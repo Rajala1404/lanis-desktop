@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lanis/generated/l10n.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/services.dart';
-import 'package:mime/mime.dart';
 
 import '../core/sph/sph.dart';
 import 'file_icons.dart';
@@ -197,22 +196,31 @@ void launchFile(BuildContext context, FileInfo file, Function callback) {
   });
 }
 
-void saveFile(BuildContext context, FileInfo file, Function callback) {
-  const platform = MethodChannel('io.github.lanis-mobile/storage');
+Future<void> saveFile(BuildContext context, FileInfo file, Function callback) async {
   final String filename = file.name ?? AppLocalizations.of(context).unknownFile;
+  String? downloadDir;
 
+  if (Platform.isWindows) {
+    downloadDir = "${Platform.environment["USERPROFILE"]}\\Downloads";
+  } else {
+    downloadDir = "${Platform.environment["HOME"]}/Downloads";
+  }
+
+
+  // For local files, just save directly
   if (file.isLocal) {
-    // For local files, just save directly
-    platform
-        .invokeMethod('saveFile', {
-          'fileName': filename,
-          'mimeType': lookupMimeType(file.localPath!) ?? "*/*",
-          'filePath': file.localPath,
-        })
-        .then((_) {
-          callback();
-        });
-    return;
+
+    String? path = await FilePicker.platform.saveFile(
+      fileName: filename,
+      lockParentWindow: true,
+      initialDirectory: downloadDir
+    );
+
+    if (path == null) callback();
+
+    File(file.localPath!).copySync(path!);
+
+    callback();
   }
 
   // For remote files, download then save
@@ -230,11 +238,16 @@ void saveFile(BuildContext context, FileInfo file, Function callback) {
     if (filepath == "" && context.mounted) {
       showDialog(context: context, builder: (context) => errorDialog(context));
     } else {
-      await platform.invokeMethod('saveFile', {
-        'fileName': filename,
-        'mimeType': lookupMimeType(filepath) ?? "*/*",
-        'filePath': filepath,
-      });
+      String? path = await FilePicker.platform.saveFile(
+        fileName: filename,
+        initialDirectory: downloadDir,
+        lockParentWindow: true,
+      );
+
+      if (path == null) callback();
+
+      File(filepath).copySync(path!);
+
       callback();
     }
   });
