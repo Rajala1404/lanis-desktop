@@ -31,9 +31,6 @@ dependencies:
   dio: ^5.9.0
   html: ^0.15.4
   flutter_launcher_icons: ^0.14.0
-  flutter_local_notifications: ^19.0.0
-  background_fetch: 1.4.0
-  flutter_background_executor: ^1.0.0
   package_info_plus: ^9.0.0
   encrypt: ^5.0.3
   pointycastle: ^3.7.3

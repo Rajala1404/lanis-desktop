@@ -11,12 +11,10 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:lanis/utils/logger.dart';
 import 'package:lanis/utils/mono_text_viewer.dart';
-import 'package:lanis/core/sph/sph.dart';
 import 'package:lanis/generated/l10n.dart';
 import 'package:lanis/startup.dart';
 import 'package:lanis/themes.dart';
 import 'package:lanis/utils/authentication_state.dart';
-import 'package:lanis/utils/quick_actions.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'applets/conversations/view/shared.dart';
@@ -37,9 +35,7 @@ void main() async {
 
   enableTransparentNavigationBar();
 
-  authenticationState.login().then((v) {
-    if (sph?.session != null) QuickActionsStartUp();
-  });
+  authenticationState.login().then((v) {});
 
   await initializeDateFormatting();
 

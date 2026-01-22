@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lanis/applets/calendar/definition.dart';
 import 'package:lanis/applets/timetable/definition.dart';
@@ -10,7 +9,6 @@ import 'package:lanis/view/settings/settings_page_builder.dart';
 import 'package:lanis/view/settings/subsettings/about.dart';
 import 'package:lanis/view/settings/subsettings/appearance.dart';
 import 'package:lanis/view/settings/subsettings/cache.dart';
-import 'package:lanis/view/settings/subsettings/quick_actions.dart';
 import 'package:lanis/view/settings/subsettings/userdata.dart';
 
 import '../../applets/calendar/calendar_export.dart';
@@ -81,18 +79,6 @@ class _SettingsScreenState extends SettingsColoursState<SettingsScreen> {
           screen: (context) => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => CacheSettings()),
-          ),
-        ),
-        SettingsTile(
-          title: (context) => AppLocalizations.of(context).quickActions,
-          subtitle: (context) async =>
-              "${AppLocalizations.of(context).applets}, ${AppLocalizations.of(context).external}",
-          icon: Icons.extension,
-          screen: (context) => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => QuickActions(showBackButton: true),
-            ),
           ),
         ),
       ],
@@ -275,9 +261,6 @@ class _SettingsScreenState extends SettingsColoursState<SettingsScreen> {
         } else if (tile.title(context) ==
             AppLocalizations.of(context).customizeTimetable) {
           return StudentTimetableSettings(showBack: !isTablet);
-        } else if (tile.title(context) ==
-            AppLocalizations.of(context).quickActions) {
-          return QuickActions(showBackButton: !isTablet);
         } else if (tile.title(context) ==
             AppLocalizations.of(context).inThisUpdate) {
           return FutureBuilder(

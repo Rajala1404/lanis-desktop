@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -8,7 +7,6 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:lanis/home_page.dart';
 import 'package:lanis/models/client_status_exceptions.dart';
 import 'package:lanis/utils/authentication_state.dart';
-import 'package:lanis/utils/quick_actions.dart';
 import 'package:lanis/view/login/auth.dart';
 import 'package:lanis/view/login/screen.dart';
 import 'package:lanis/generated/l10n.dart';
@@ -316,7 +314,6 @@ class _StartupScreenState extends State<StartupScreen>
   Widget build(BuildContext context) {
     // Sets the apps context as soon as possible
     AppLocalizations.of(context);
-    QuickActionsStartUp.setNames(context);
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
