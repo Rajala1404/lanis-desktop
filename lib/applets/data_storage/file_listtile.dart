@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/sph/sph.dart';
@@ -47,33 +48,37 @@ class _FileListTileState extends State<FileListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: MarqueeWidget(child: Text(widget.file.name)),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (widget.file.hinweis != null)
-            Expanded(child: MarqueeWidget(child: Text(widget.file.hinweis!)))
-          else
-            Text(widget.file.groesse),
-          const SizedBox(width: 5),
-          Text(widget.file.aenderung),
-        ],
-      ),
-      leading: Badge(
-        backgroundColor: exists.color,
-        child: Icon(getIconByFileExtension(widget.file.fileExtension)),
-      ),
-      onTap: () => launchFile(
-        context,
-        FileInfo(
-          name: widget.file.name,
-          size: widget.file.groesse,
-          url: Uri.parse(widget.file.downloadUrl),
+    return InkWell(
+      child: ListTile(
+        title: MarqueeWidget(child: Text(widget.file.name)),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.file.hinweis != null)
+              Expanded(child: MarqueeWidget(child: Text(widget.file.hinweis!)))
+            else
+              Text(widget.file.groesse),
+            const SizedBox(width: 5),
+            Text(widget.file.aenderung),
+          ],
         ),
-        updateLocalFileStatus,
+        leading: Badge(
+          backgroundColor: exists.color,
+          child: Icon(getIconByFileExtension(widget.file.fileExtension)),
+        ),
       ),
-      onLongPress: () {
+      onTap: () {
+        launchFile(
+          context,
+          FileInfo(
+            name: widget.file.name,
+            size: widget.file.groesse,
+            url: Uri.parse(widget.file.downloadUrl),
+          ),
+          updateLocalFileStatus,
+        );
+      },
+      onSecondaryTap: () {
         showFileModal(
           context,
           FileInfo(
