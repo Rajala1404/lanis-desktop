@@ -1,4 +1,6 @@
-# Lanis Mobile
+# Lanis Desktop
+
+## THIS IS STILL MIGRATING FROM lanis-mobile
 
 
 Deine App für das hessische Schulportal! In Zusammenarbeit mit dem staatlichen Schulamt für den Landkreis Groß-Gerau und den Main-Taunus-Kreis
