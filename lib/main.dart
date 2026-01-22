@@ -20,7 +20,6 @@ import 'package:lanis/utils/quick_actions.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'applets/conversations/view/shared.dart';
-import 'background_service.dart';
 import 'core/database/account_database/account_db.dart'
     show accountDatabase, AccountDatabase;
 
@@ -42,8 +41,6 @@ void main() async {
     if (sph?.session != null) QuickActionsStartUp();
   });
 
-  await setupBackgroundService(accountDatabase);
-  await initializeNotifications();
   await initializeDateFormatting();
 
   logger.testLogger();

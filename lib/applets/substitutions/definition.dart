@@ -4,7 +4,6 @@ import 'package:lanis/applets/definitions.dart';
 import 'package:lanis/applets/substitutions/substitutions_view.dart';
 
 import '../../models/account_types.dart';
-import 'background.dart';
 
 final substitutionDefinition = AppletDefinition(
   appletPhpUrl: 'vertretungsplan.php',
@@ -21,7 +20,6 @@ final substitutionDefinition = AppletDefinition(
   ],
   refreshInterval: Duration(minutes: 10),
   settingsDefaults: {},
-  notificationTask: substitutionsBackgroundTask,
   bodyBuilder: (context, accountType, openDrawerCb) {
     return SubstitutionsView(openDrawerCb: openDrawerCb);
   },

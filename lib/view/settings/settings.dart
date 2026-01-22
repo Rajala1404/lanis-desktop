@@ -14,12 +14,10 @@ import 'package:lanis/view/settings/settings_page_builder.dart';
 import 'package:lanis/view/settings/subsettings/about.dart';
 import 'package:lanis/view/settings/subsettings/appearance.dart';
 import 'package:lanis/view/settings/subsettings/cache.dart';
-import 'package:lanis/view/settings/subsettings/notifications.dart';
 import 'package:lanis/view/settings/subsettings/quick_actions.dart';
 import 'package:lanis/view/settings/subsettings/userdata.dart';
 
 import '../../applets/calendar/calendar_export.dart';
-import '../../core/database/account_database/account_db.dart';
 import '../../core/sph/sph.dart';
 import '../../utils/press_tile.dart';
 import '../../utils/whats_new.dart';
@@ -135,29 +133,6 @@ class _SettingsScreenState extends SettingsColoursState<SettingsScreen> {
               return majorVersion >= 13;
             }
             return false;
-          },
-        ),
-        SettingsTile(
-          title: (context) => AppLocalizations.of(context).notifications,
-          subtitle: (context) async {
-            return AppLocalizations.of(context).intervalAppletsList;
-          },
-          icon: Icons.notifications_rounded,
-          screen: (context) async {
-            int accountCount = await accountDatabase
-                .select(accountDatabase.accountsTable)
-                .get()
-                .then((value) => value.length);
-
-            if (context.mounted) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      NotificationSettings(accountCount: accountCount),
-                ),
-              );
-            }
           },
         ),
         SettingsTile(
@@ -355,12 +330,6 @@ class _SettingsScreenState extends SettingsColoursState<SettingsScreen> {
         final isTablet = Responsive.isTablet(context);
         if (tile.title(context) == AppLocalizations.of(context).appearance) {
           return AppearanceSettings(showBackButton: !isTablet);
-        } else if (tile.title(context) ==
-            AppLocalizations.of(context).notifications) {
-          return NotificationSettings(
-            accountCount: 1,
-            showBackButton: !isTablet,
-          );
         } else if (tile.title(context) ==
             AppLocalizations.of(context).clearCache) {
           return CacheSettings(showBackButton: !isTablet);

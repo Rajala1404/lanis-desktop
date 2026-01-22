@@ -9,21 +9,12 @@ import 'package:lanis/applets/substitutions/definition.dart';
 import 'package:lanis/applets/timetable/definition.dart';
 import 'package:lanis/models/account_types.dart';
 
-import '../background_service.dart';
-import '../core/sph/sph.dart';
-
 typedef StringBuildContextCallback = String Function(BuildContext context);
 typedef WidgetBuildBody =
     Widget Function(
       BuildContext context,
       AccountType accountType,
       Function? openDrawerCb,
-    );
-typedef BackgroundTaskFunction =
-    Future<void> Function(
-      SPH sph,
-      AccountType accountType,
-      BackgroundTaskToolkit toolkit,
     );
 
 enum AppletType { nested, navigation }
@@ -40,7 +31,6 @@ class AppletDefinition {
   final Duration refreshInterval;
   final Map<String, dynamic> settingsDefaults;
   WidgetBuildBody? bodyBuilder;
-  BackgroundTaskFunction? notificationTask;
 
   bool get enableBottomNavigation => appletType == AppletType.nested;
 
@@ -54,7 +44,6 @@ class AppletDefinition {
     required this.supportedAccountTypes,
     required this.refreshInterval,
     required this.settingsDefaults,
-    this.notificationTask,
     this.bodyBuilder,
     this.allowOffline = false,
   });
