@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:app_settings/app_settings.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lanis/applets/calendar/definition.dart';
