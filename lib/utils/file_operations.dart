@@ -92,7 +92,7 @@ void showFileModal(BuildContext context, FileInfo file) {
                     ],
                   ),
                 ),
-                if (!Platform.isIOS && !file.isLocal)
+                if (!file.isLocal)
                   (MenuItemButton(
                     onPressed: () => {saveFile(context, file, () {})},
                     child: Row(
