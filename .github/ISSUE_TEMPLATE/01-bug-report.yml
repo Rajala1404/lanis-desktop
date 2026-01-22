@@ -34,8 +34,9 @@ body:
       label: Device Info
       description: Please provide some info about the Device your using
       placeholder: |
-        OS: Android 20
-        Device: Samsung Galaxy S44 Ultra Pro Max Toaster Edition
+        OS: ArchLinux x86_64
+        CPU: AMD Ryzen 5 7600X
+        GPU: AMD Radeon RX 7800 XT
     validations:
       required: true
   - type: markdown
