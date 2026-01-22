@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'kv_defaults.dart';
 
@@ -62,7 +65,16 @@ class AccountPreferencesDatabase extends _$AccountPreferencesDatabase {
   int get schemaVersion => 1;
 
   static QueryExecutor _openConnection(int id) {
-    return driftDatabase(name: 'session_${id}_db');
+    return LazyDatabase(() async {
+      final dbFolder = Directory((await getApplicationSupportDirectory()).path);
+      if (!await dbFolder.exists()) {
+        await dbFolder.create(recursive: true);
+      }
+
+      final file = File('${dbFolder.path}${Platform.pathSeparator}session_${id}_db.sqlite');
+
+      return NativeDatabase(file);
+    });
   }
 
   Future<NotificationsDuplicatesTableData?> getNotificationDuplicates(

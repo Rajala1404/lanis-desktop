@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -261,7 +262,16 @@ class AccountDatabase extends _$AccountDatabase {
   }
 
   static QueryExecutor _openConnection() {
-    return driftDatabase(name: 'accounts_database');
+    return LazyDatabase(() async {
+      final dbFolder = Directory((await getApplicationSupportDirectory()).path);
+      if (!await dbFolder.exists()) {
+        await dbFolder.create(recursive: true);
+      }
+
+      final file = File('${dbFolder.path}${Platform.pathSeparator}accounts_database.sqlite');
+
+      return NativeDatabase(file);
+    });
   }
 }
 

@@ -14,7 +14,7 @@ class StorageManager {
   StorageManager({required this.sph});
 
   Future<Directory> getDocumentCacheDirectory() async {
-    var tempDir = await getTemporaryDirectory();
+    var tempDir = await getApplicationCacheDirectory();
     var userDir = Directory("${tempDir.path}/${sph.account.localId}");
     if (!userDir.existsSync()) {
       userDir.createSync();
