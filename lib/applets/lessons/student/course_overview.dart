@@ -120,7 +120,7 @@ class _CourseOverviewAnsichtState extends State<CourseOverviewAnsicht> {
                   for (FileInfo file in data!.history[index].files) {
                     files.add(
                       GestureDetector(
-                        onLongPress: () {
+                        onSecondaryTap: () {
                           showFileModal(context, file);
                         },
                         child: ActionChip(

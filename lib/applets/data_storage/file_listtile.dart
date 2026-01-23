@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/sph/sph.dart';
@@ -127,25 +126,31 @@ class _SearchFileListTileState extends State<SearchFileListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: MarqueeWidget(child: Text(widget.name)),
-      leading: Badge(
-        backgroundColor: exists.color,
-        child: Icon(getIconByFileExtension(widget.name.split('.').last)),
-      ),
-      onTap: () => launchFile(
-        context,
-        FileInfo(name: widget.name, url: Uri.parse(widget.downloadUrl)),
-        updateLocalFileStatus,
-      ),
-      onLongPress: () => showFileModal(
-        context,
-        FileInfo(
-          name: widget.name,
-          url: Uri.parse(widget.downloadUrl),
-          size: "",
+    return InkWell(
+      child: ListTile(
+        title: MarqueeWidget(child: Text(widget.name)),
+        leading: Badge(
+          backgroundColor: exists.color,
+          child: Icon(getIconByFileExtension(widget.name.split('.').last)),
         ),
       ),
+      onTap: () {
+        launchFile(
+          context,
+          FileInfo(name: widget.name, url: Uri.parse(widget.downloadUrl)),
+          updateLocalFileStatus,
+        );
+      },
+      onSecondaryTap: () {
+        showFileModal(
+          context,
+          FileInfo(
+            name: widget.name,
+            url: Uri.parse(widget.downloadUrl),
+            size: "",
+          ),
+        );
+      },
     );
   }
 }
