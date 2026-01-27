@@ -21,16 +21,10 @@ jobs:
       - run: pod repo update
         working-directory: macos
 
-      - run: flutter build macos --release --no-tree-shake-icons
-
-      - run: ls
-        working-directory: build/macos/Build/Products/Release/
-
-      - run: mv Runner.app/ Lanis.app/
-        working-directory: build/macos/Build/Products/Release/
+      - run: flutter build macos --release
 
       - name: DMG Output
-        run: hdiutil create -volname "Lanis" -srcfolder "Lanis.app" -ov -format UDZO "Lanis.dmg"
+        run: hdiutil create -volname "Lanis" -srcfolder "lanis.app" -ov -format UDZO "Lanis.dmg"
         working-directory: build/macos/Build/Products/Release/
 
       - name: Upload binaries as artifact
