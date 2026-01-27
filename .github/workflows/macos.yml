@@ -16,6 +16,8 @@ jobs:
           architecture: x64
       - run: flutter pub get
 
+      - run: dart run intl_utils:generate
+
       - run: pod repo update
         working-directory: macos
 
