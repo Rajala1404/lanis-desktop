@@ -9,8 +9,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-
-      - run: ls
         
       - uses: subosito/flutter-action@v2
         with:
@@ -19,7 +17,7 @@ jobs:
       - run: flutter pub get
 
       - run: pod repo update
-        working-directory: macOS
+        working-directory: macos
 
       - run: flutter build macOS --release --no-codesign --no-tree-shake-icons
 
