@@ -21,7 +21,7 @@ jobs:
       - run: pod repo update
         working-directory: macos
 
-      - run: flutter build macos --release --no-codesign --no-tree-shake-icons
+      - run: flutter build macos --release --no-tree-shake-icons
 
       - run: ls
         working-directory: build/macos/Build/Products/Release/
