@@ -30,5 +30,5 @@ jobs:
       - name: Upload binaries as artifact
         uses: actions/upload-artifact@v6
         with:
-          name: macos-binary
+          name: lanis-macos.dmg
           path: build/macos/Build/Products/Release/Lanis.dmg
