@@ -46,7 +46,7 @@ Future<List<PickedFile>> pickFileUsingDocumentsUI(
   if (allowedExtensions == null || allowedExtensions.isEmpty) {
     allowedExtensions = List.from(["*"]);
   }
-  FilePickerResult? result = await FilePicker.platform.pickFiles(
+  FilePickerResult? result = await FilePicker.pickFiles(
     type: FileType.custom,
     allowedExtensions: allowedExtensions,
     allowMultiple: true,
