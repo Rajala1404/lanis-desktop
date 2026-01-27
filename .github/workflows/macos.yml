@@ -9,6 +9,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+
+      - run: ls
+        working-directory: repo
         
       - uses: subosito/flutter-action@v2
         with:
