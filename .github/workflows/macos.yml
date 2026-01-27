@@ -15,26 +15,26 @@ jobs:
           channel: 'stable'
           architecture: x64
       - run: flutter pub get
-        working-directory: ./
+        working-directory: repo
 
       - run: pod repo update
-        working-directory: macOS
+        working-directory: repo
 
       - run: flutter build macOS --release --no-codesign --no-tree-shake-icons
-        working-directory: ./
+        working-directory: repo
 
       - run: ls
-        working-directory: build/macos/Build/Products/Release/
+        working-directory: repo/build/macos/Build/Products/Release/
 
       - run: mv Runner.app/ Lanis.app/
-        working-directory: build/macos/Build/Products/Release/
+        working-directory: repo/build/macos/Build/Products/Release/
 
       - name: DMG Output
         run: hdiutil create -volname "Lanis" -srcfolder "Lanis.app" -ov -format UDZO "Lanis.dmg"
-        working-directory: build/macos/Build/Products/Release/
+        working-directory: repo/build/macos/Build/Products/Release/
 
       - name: Upload binaries as artifact
         uses: actions/upload-artifact@v6
         with:
           name: macos-binary
-          path: build/macos/Build/Products/Release/Lanis.dmg
+          path: repo/build/macos/Build/Products/Release/Lanis.dmg
