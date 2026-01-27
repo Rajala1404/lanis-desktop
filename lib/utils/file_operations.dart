@@ -210,7 +210,7 @@ Future<void> saveFile(BuildContext context, FileInfo file, Function callback) as
   // For local files, just save directly
   if (file.isLocal) {
 
-    String? path = await FilePicker.platform.saveFile(
+    String? path = await FilePicker.saveFile(
       fileName: filename,
       lockParentWindow: true,
       initialDirectory: downloadDir
@@ -237,7 +237,7 @@ Future<void> saveFile(BuildContext context, FileInfo file, Function callback) as
     if (filepath == "" && context.mounted) {
       showDialog(context: context, builder: (context) => errorDialog(context));
     } else {
-      String? path = await FilePicker.platform.saveFile(
+      String? path = await FilePicker.saveFile(
         fileName: filename,
         initialDirectory: downloadDir,
         lockParentWindow: true,
