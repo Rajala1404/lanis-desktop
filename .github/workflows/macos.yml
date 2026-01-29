@@ -21,7 +21,7 @@ jobs:
       - run: pod repo update
         working-directory: macos
 
-      - run: flutter build macos --release
+      - run: flutter build macos --release --dart-define=cronetHttpNoPlay=true
 
       - name: DMG Output
         run: hdiutil create -volname "Lanis" -srcfolder "lanis.app" -ov -format UDZO "Lanis.dmg"
